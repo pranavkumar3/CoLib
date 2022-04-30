@@ -1,10 +1,21 @@
-const express = require('express')
-const dotenv = require('dotenv').config()//for environment variables
+const express=require('express')
+const colors=require('colors')
+const dotenv=require('dotenv').config()
+const port=process.env.PORT
 
-const port = process.env.PORT || 5000
+const connectDB=require('./config/db')
 
-const app = express()
+connectDB()
 
-app.use('/api/goals', require('./routes/goalRoutes'))
+const app=express()
 
-app.listen(port, ()=> console.log(`server listening on port ${ port }`))
+const testRouter=require('./routes/testroute')
+
+//api/books
+//api/users
+//api/issues
+
+app.use('/api/test',testRouter)
+
+
+app.listen(port,()=>console.log(`Server started on port ${port}`))
