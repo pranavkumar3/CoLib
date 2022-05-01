@@ -3,7 +3,7 @@ function App() {
   return (
     <div>
       <h1>
-        My 
+          Aight
       </h1>
     </div>
   );
