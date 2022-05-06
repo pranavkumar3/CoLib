@@ -1,42 +1,38 @@
 const asyncHandler = require('express-async-handler')
-const Goal=require('../models/goalModel')
+const User=require('../models/userModel')
 
 const testget=asyncHandler(async (req,res)=>{
-    const ggoals= await Goal.find()
+    const ggoals= await User.find()
     res.status(200).json(ggoals)
 }
 )
 
 const testpost=asyncHandler( async (req,res)=>{
-    console.log("AAAAA")
-    console.log(req.body)
-    if(!req.body.text){
+    if(!req.body){
         res.status(400)
         throw new Error('Please add text')
     }
-    const goal=await Goal.create({
-        text: req.body.text
-    })
-    res.status(200).json(goal)
+    const goal=await User.create(req.body)
+    res.status(200).json(req.body)
 }
 )
 
 const testput=asyncHandler(async (req,res)=>{
-    const goal =await Goal.findById(req.params.id)
+    const goal =await User.findById(req.params.id)
     if(!goal){
         res.status(400)
-        throw new Error("Goal not found")
+        throw new Error("User not found")
     }
-    const updatedGoal=await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true,})
+    const updatedGoal=await User.findByIdAndUpdate(req.params.id, req.body, {new: true,})
     res.status(200).json(updatedGoal)
 }
 )
 
 const testdelete=asyncHandler(async(req,res)=>{
-    const goal =await Goal.findById(req.params.id)
+    const goal =await User.findById(req.params.id)
     if(!goal){
         res.status(400)
-        throw new Error("Goal not found")
+        throw new Error("User not found")
     }
     await goal.remove()
     res.status(200).json({id:req.params.id})

@@ -29,5 +29,5 @@ const userSchema = new Schema(
 }
 );
 
-User.plugin(plm);
+userSchema.plugin(plm);
 module.exports = mongoose.model('User', userSchema);

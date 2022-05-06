@@ -1,7 +1,10 @@
 const express=require('express')
 const router=express.Router()
+const bodyParser = require('body-parser')
 
 const {testget,testput,testpost,testdelete}=require('../controllers/testcontroller')
+
+router.use(bodyParser.json())
 
 router.get('/',testget)
 
