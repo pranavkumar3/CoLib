@@ -15,12 +15,10 @@ const userSchema = new Schema(
     email: {
           type: String,
           required: true,
-          unique: true
     },
     roll: {
         type: String,
         required: true,
-        unique: true
     },
     admin: {
         type: Boolean,
@@ -29,5 +27,5 @@ const userSchema = new Schema(
 }
 );
 
-userSchema.plugin(plm);
+//userSchema.plugin(plm);
 module.exports = mongoose.model('User', userSchema);
