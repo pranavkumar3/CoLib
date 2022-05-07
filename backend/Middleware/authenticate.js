@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
+const dotenv=require('dotenv').config()
 
 
 exports.local=passport.use(new LocalStrategy(User.authenticate()));

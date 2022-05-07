@@ -1,20 +1,22 @@
-const express = require('express');
+var express = require('express');
 const bodyParser = require('body-parser');
 const issueRouter = express.Router();
 const mongoose=require('mongoose');
 
-const Issue = require('../models/issueModel');
-const Books = require('../models/bookModel');
-const Users = require('../models/userModel');
+var Issue = require('../models/issueModel');
+var Books = require('../models/bookModel');
+var Users = require('../models/userModel');
 
-const passport = require('passport');
-const authenticate = require('../Middleware/authenticate');
+var passport = require('passport');
+var authenticate = require('../Middleware/authenticate');
+
+const cors = require('./cors');
 
 issueRouter.use(bodyParser.json());
 
 issueRouter.route('/')
-.options( (req, res) => { res.sendStatus(200); })
-.get( authenticate.verifyUser
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.corsWithOptions, authenticate.verifyUser
                 ,authenticate.verifyAdmin,
                   function(req, res, next) {
                     Issue.find({})
@@ -29,7 +31,7 @@ issueRouter.route('/')
                   }
 )
 
-.post(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.post(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     Books.findById(req.body.book)
     .then((requiredBook)=>{
         Users.findById(req.body.student)
@@ -101,11 +103,11 @@ issueRouter.route('/')
 
 })
 
-.put(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.put(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /issues');
 })
-.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     //res.statusCode = 403;
     //res.end('DELETE operation not supported on /issues');
     
@@ -120,8 +122,8 @@ issueRouter.route('/')
     
 })
 issueRouter.route('/student/')
-.options( (req, res) => { res.sendStatus(200); })
-.get(authenticate.verifyUser,(req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.corsWithOptions,authenticate.verifyUser,(req,res,next) => {
     console.log("\n\n\n Object ID =====" +req.user._id);
     Issue.find({student: req.user._id})
     .populate('student')
@@ -137,8 +139,8 @@ issueRouter.route('/student/')
 
 
 issueRouter.route('/:issueId')
-.options( (req, res) => { res.sendStatus(200); })
-.get(authenticate.verifyUser,(req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.corsWithOptions,authenticate.verifyUser,(req,res,next) => {
     Issue.findById(req.params.issueId)
     .populate('student')
     .populate('book')
@@ -164,17 +166,17 @@ issueRouter.route('/:issueId')
     .catch((err)=>(next(err)))
 })
 
-.post(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.post(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('POST operation not supported on /issues/'+ req.params.issueId);
 })
 
-.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('POST operation not supported on /issues/'+ req.params.issueId);
 })
 
-.put(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.put(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     Issue.findById(req.params.issueId)
     .then((issue)=>{
     

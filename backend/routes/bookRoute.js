@@ -3,12 +3,14 @@ const bodyParser = require('body-parser');
 const mongoose=require('mongoose');
 const bookRouter = express.Router();
 const authenticate=require('../Middleware/authenticate');
+const cors = require('./cors');
 const Books=require('../models/bookModel');
 bookRouter.use(bodyParser.json());
 
 bookRouter.route('/')
-.options( (req, res) => { res.sendStatus(200); })
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.corsWithOptions,(req,res,next) => {
+    console.log("asked")
     Books.find(req.query)
     .sort({name: 'asc'})
     .then((books)=>{
@@ -18,7 +20,7 @@ bookRouter.route('/')
     },(err)=>(next(err)))
     .catch((err)=>(next(err)))
 })
-.post(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.post(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     Books.create(req.body)
     .then((book)=>{
         res.statusCode=200;
@@ -27,19 +29,19 @@ bookRouter.route('/')
     },(err)=>(next(err)))
     .catch((err)=>(next(err))) 
 })
-.put(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.put(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /books');
 })
-.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('DELETE operation not supported on /books');
 });
 
 bookRouter.route('/:bookId')
-.options( (req, res) => { res.sendStatus(200); 
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); 
     res.setHeader('Access-Control-Allow-Credentials', 'true')})
-.get((req,res,next) => {
+.get(cors.corsWithOptions,(req,res,next) => {
     Books.findById(req.params.bookId)
     .then((book)=>{
         res.statusCode=200;
@@ -49,12 +51,12 @@ bookRouter.route('/:bookId')
     .catch((err)=>(next(err)));
 })
 
-.post(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.post(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('POST operation not supported on /books/'+ req.params.bookId);
 })
 
-.put(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.put(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
  Books.findByIdAndUpdate(req.params.bookId,{
      $set: req.body
  },{new: true})
@@ -66,7 +68,7 @@ bookRouter.route('/:bookId')
 .catch((err) => res.status(400).json({success: false}));
 })
 
-.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     Books.findByIdAndRemove(req.params.bookId)
     .then((resp) => {
         res.statusCode = 200;

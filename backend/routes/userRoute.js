@@ -1,17 +1,18 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 const bodyParser = require('body-parser');
-const User = require('../models/userModel');
-const passport = require('passport');
-const authenticate = require('../Middleware/authenticate');
+var User = require('../models/userModel');
+var passport = require('passport');
+var authenticate = require('../Middleware/authenticate');
 
-//const cors = require('../cors');
+const cors = require('./cors');
 
 router.use(bodyParser.json());
 
-router.options('*', (req, res) => { res.sendStatus(200); 
+/* GET users listing. */
+router.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus(200); 
   res.setHeader('Access-Control-Allow-Credentials', 'true');} )
-router.get('/', authenticate.verifyUser
+router.get('/', cors.corsWithOptions, authenticate.verifyUser
                 ,authenticate.verifyAdmin,
                   function(req, res, next) {
                     User.find({})
@@ -24,7 +25,7 @@ router.get('/', authenticate.verifyUser
                   }
 );
 
-router.put('/:userId',authenticate.verifyUser,
+router.put('/:userId',cors.corsWithOptions,authenticate.verifyUser,
 function(req,res,next){
   User.findByIdAndUpdate(req.params.userId,{
     $set: req.body
@@ -37,7 +38,8 @@ function(req,res,next){
 .catch((err) => res.status(400).json({success: false}));
 })
 
-router.put('/password/:userId',authenticate.verifyUser,
+// For change of password
+router.put('/password/:userId',cors.corsWithOptions,authenticate.verifyUser,
 function(req,res,next){
   User.findById(req.params.userId)
 .then((user) => {
@@ -59,7 +61,7 @@ function(req,res,next){
 })
 
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup',cors.corsWithOptions, (req, res, next) => {
   User.register(new User({username: req.body.username,
     firstname : req.body.firstname,
     lastname : req.body.lastname,
@@ -90,7 +92,7 @@ router.post('/signup', (req, res, next) => {
     });
 });
 
-router.post('/login', passport.authenticate('local'), (req, res,next) => {
+router.post('/login',cors.corsWithOptions, passport.authenticate('local'), (req, res,next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err)
       return next(err);
@@ -115,7 +117,7 @@ router.post('/login', passport.authenticate('local'), (req, res,next) => {
   }) (req, res, next); // function call IIFE
   });
 
-router.get('/logout', (req, res) => {
+router.get('/logout',cors.cors, (req, res) => {
   if (req.session) {
     req.session.destroy();
     res.clearCookie('session-id');
@@ -128,7 +130,7 @@ router.get('/logout', (req, res) => {
   }
 });
 
-router.get('/checkJWTtoken', (req, res) => {
+router.get('/checkJWTtoken', cors.corsWithOptions, (req, res) => {
   passport.authenticate('jwt', {session: false}, (err, user, info) => {
     if (err)
       return next(err);
@@ -148,4 +150,3 @@ router.get('/checkJWTtoken', (req, res) => {
 });
 
 module.exports = router;
-   
