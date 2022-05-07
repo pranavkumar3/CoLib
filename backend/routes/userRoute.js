@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const User = require('../../models/users');
+const User = require('../models/userModel');
 const passport = require('passport');
 const authenticate = require('../Middleware/authenticate');
 
@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 
 router.options('*', (req, res) => { res.sendStatus(200); 
   res.setHeader('Access-Control-Allow-Credentials', 'true');} )
-router.get('/', cors.corsWithOptions, authenticate.verifyUser
+router.get('/', authenticate.verifyUser
                 ,authenticate.verifyAdmin,
                   function(req, res, next) {
                     User.find({})
@@ -115,7 +115,7 @@ router.post('/login', passport.authenticate('local'), (req, res,next) => {
   }) (req, res, next); // function call IIFE
   });
 
-router.get('/logout',cors.cors, (req, res) => {
+router.get('/logout', (req, res) => {
   if (req.session) {
     req.session.destroy();
     res.clearCookie('session-id');

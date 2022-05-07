@@ -9,13 +9,16 @@ connectDB()
 
 const app=express()
 
-const testRouter=require('./routes/testroute')
+const userRouter=require('./routes/userRoute')
+const bookRouter=require('./routes/bookRoute')
+const issueRouter=require('./routes/issueRoute')
 
 //api/books
 //api/users
 //api/issues
 
-app.use('/api/test',testRouter)
-
+app.use('/api/users',userRouter)
+app.use('/api/books',bookRouter)
+app.use('/api/issues',issueRouter)
 
 app.listen(port,()=>console.log(`Server started on port ${port}`))
