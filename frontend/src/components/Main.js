@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Home from './Home.js';
-import Booklist from './BookList.js';
+import BookList from './BookList.js';
 import Search from './Search.js';
-import BookDetail from './BookInfo.js';
+import BookInfo from './BookInfo.js';
 import Profile from './Profile.js';
 import AddBook from './AddBook.js';
 import History from './History.js';
-import Issue from './BookIssue.js';
+import BookIssue from './BookIssue.js';
 import Return from './Return.js';
-import UserDetail from './UserInfo';
+import UserInfo from './UserInfo';
 import Stats from './Stats.js';
 import Log from './Log.js';
 import UserList from './UserList.js';
@@ -105,7 +105,7 @@ class Main extends Component {
       notFoundErr=("\n\n Error 404 :  Book not found");
       }  
       return(
-          <BookDetail book={selectedBook}
+          <BookInfo book={selectedBook}
           isLoading={this.props.books.isLoading}
           errMess={this.props.books.errMess||notFoundErr}
           toggleEditModal={this.toggleEditModal}
@@ -122,7 +122,7 @@ class Main extends Component {
         notFoundErr=("\n\n Error 404 :  User not found");
         }  
         return(
-            <UserDetail user={selectedUser}
+            <UserInfo user={selectedUser}
             isLoading={this.props.users.isLoading}
             errMess={this.props.users.errMess||notFoundErr}
             />
@@ -186,7 +186,7 @@ class Main extends Component {
                 />}
                 />
 
-                      <Route exact path='/books' component={() => <Booklist
+                      <Route exact path='/books' component={() => <BookList
                       books={this.props.books.books}
                       booksLoading={this.props.books.isLoading}
                       booksErrMess={this.props.books.errMess}
@@ -236,7 +236,7 @@ class Main extends Component {
                       usersErrMess={this.props.users.errMess}
                      />}
                       />
-                       <PrivateRouteAdmin exact path='/issue' component={() => <Issue
+                       <PrivateRouteAdmin exact path='/issue' component={() => <BookIssue
                       auth={this.props.auth}
                       books={this.props.books.books}
                       booksLoading={this.props.books.isLoading}

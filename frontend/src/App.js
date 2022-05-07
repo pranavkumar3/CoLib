@@ -10,8 +10,6 @@ import './App.css';
 
 const store= ConfigureStore();
 
-
-
 function App() {
   return ( 
     <Provider store={store}>

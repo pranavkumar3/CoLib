@@ -29,7 +29,7 @@ render(){
             </div>
             <div className="row darkbg justify-content-center">
             <table>
-    <tr> <th colspan={"2"}><h6>Library Timings</h6></th> </tr>
+    <tr> <th colspan={"4"}><h6>Library Timings</h6></th> </tr>
     <tr> <td><h6>Opening Time</h6> </td> <td> <h6>9.00 A.M.</h6></td></tr>
     <tr> <td>Closing Time </td> <td> 9.00 P.M.</td></tr>
             </table>
