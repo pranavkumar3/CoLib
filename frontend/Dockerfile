@@ -3,8 +3,8 @@ FROM node:16
 # Creating app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY ./frontend/package*.json ./
+COPY package*.json ./
 RUN npm install --force
-COPY ./frontend .
+COPY . .
 EXPOSE 3000
 CMD ["npm", "start"]
