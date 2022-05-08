@@ -1,7 +1,7 @@
 FROM node:16
 
 WORKDIR /usr/src/app/server
-COPY ../package*.json /usr/src/app/server
+COPY /usr/package*.json /usr/src/app/server
 RUN npm install
 COPY . .
 EXPOSE 5000
