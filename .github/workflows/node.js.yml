@@ -3,7 +3,7 @@
 
 name: Node.js server
 
-on: [push]
+on: [workflow_dispatch]
 jobs:
       
   Build-Docker-Image-for-server:
