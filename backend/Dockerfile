@@ -1,9 +1,11 @@
 FROM node:16
 
-WORKDIR /usr/src/app/server
-RUN pwd
-COPY /usr/package*.json /usr/src/app/server
+# Creating app directory
+WORKDIR /usr/src/app
+COPY package.json ./
+COPY package-lock.json ./
 RUN npm install
 COPY . .
 EXPOSE 5000
-CMD ["npm", "run","server"]
+
+CMD ["npm", "run", "server"]
