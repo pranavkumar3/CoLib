@@ -13,7 +13,7 @@ jobs:
     - uses: actions/setup-node@v3
     
     - name: Build the Docker image
-      run: docker build . --file ./frontend/Dockerfile --tag ${{secrets.DOCKERI}}/colib-client
+      run: docker build ./frontend --file ./frontend/Dockerfile --tag ${{secrets.DOCKERI}}/colib-client
       
     - name: Login Docker
       env: 
