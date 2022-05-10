@@ -1,0 +1,30 @@
+version: "3"
+services:
+
+  client:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - mern-network
+    depends_on:
+      - server
+    command: npm start
+    stdin_open: true
+    tty: true
+  
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    networks:
+      - mern-network
+    command: npm run server
+
+networks:
+  mern-network:
+    driver: bridge
