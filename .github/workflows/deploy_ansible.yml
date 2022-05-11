@@ -17,6 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: ./.github/actions/ansible
-      with: 
-        playbook: playbook.yml
-        inventory: localhost
+    env:
+       SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+       SSH_USER: ${{ secrets.SSH_USER }}
