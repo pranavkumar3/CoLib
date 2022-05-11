@@ -1,4 +1,4 @@
-FROM  pk37/ansible-in-containers
+FROM  pk37/colib-client
 
 COPY ./entrypoint.sh /entrypoint.sh
 
