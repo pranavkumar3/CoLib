@@ -1,3 +1,4 @@
+
 ---
 - name: Pull Docker Image
   hosts: all
