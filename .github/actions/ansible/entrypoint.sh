@@ -15,4 +15,4 @@ echo "ansible_become_pass=$SSH_PASSWORD" >> /hosts
 
 echo "Entering the ansible using ansible-playbook"
 
-ansible-playbook ./playbook.yml --user $SSH_USER --ask-pass
+ansible-playbook ./playbook.yml --user $SSH_USER -vvv
