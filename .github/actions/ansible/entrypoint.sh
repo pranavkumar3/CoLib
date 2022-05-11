@@ -2,7 +2,7 @@
 echo "Ansible Entrypoint"
 
 echo "[ubuntu18]" >> /hosts
-echo "172.16.130.188" >> /hosts
+echo "172.18.0.1" >> /hosts
 
 echo "[all:vars]" >> /hosts
 echo "ansible_connection=ssh" >> /hosts
