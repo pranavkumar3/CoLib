@@ -1,1 +1,8 @@
+[ubuntu18]
+172.16.130.188 ansible_user=akash ansible_ssh_pass=akash123
 
+[all:vars]
+ansible_connection=ssh
+ansible_user=akash
+ansible_ssh_user=akash 
+ansible_python_interpreter=/usr/bin/python3
