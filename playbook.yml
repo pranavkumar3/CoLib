@@ -1,8 +1,7 @@
----
-- name: Pull Docker Image
-  hosts: all
-  tasks:
-    - name: Pull Calculator Image from Docker Hub
+name: Pull Docker Image
+hosts: all
+tasks:
+  - name: Pull Calculator Image from Docker Hub
       docker_image:
-        name: pk37/calcminiproj
+        name: pk37/colib-client
         source: pull
