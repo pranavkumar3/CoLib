@@ -19,4 +19,4 @@ echo "This is the secret: $SSH_PASSWORD"
 
 echo "Entering the ansible using ansible-playbook"
 
-ansible-playbook ./playbook.yml --user akash
+ansible-playbook ./playbook.yml --user ubuntu
