@@ -8,5 +8,5 @@ jobs:
     - uses: actions/checkout@v1
     - uses: ./.github/actions/ansible
     env:
-       SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-       SSH_USER: ${{ secrets.SSH_USER }}
+       SSH_PASSWORD: ${{secrets.SSH_PASSWORD}}
+       SSH_USER: ${{secrets.SSH_USER}}
