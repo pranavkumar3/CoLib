@@ -2,7 +2,11 @@
 - name: Pull Docker Image
   hosts: all
   tasks:
-    - name: Pull docker Image from Docker Hub
-      docker_image:
-        name: pk37/colib-client
-        source: pull
+    - name: docker compose
+      copy:
+        src: ./docker-compose.yml
+        dest: ./
+    - name: pull images
+      command: docker-compose -f ./docker-compose.yml pull
+    - name: run the docker images
+      command: docker-compose -f ./docker-compose.yml up -d
