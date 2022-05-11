@@ -1,6 +1,12 @@
-FROM  pk37/colib-client
 
-COPY ./entrypoint.sh /entrypoint.sh
+FROM node:16
 
-ENTRYPOINT ["bash","/entrypoint.sh"]
+# Creating app directory
+WORKDIR /usr/src/app
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
 
+CMD ["npm", "start"]
