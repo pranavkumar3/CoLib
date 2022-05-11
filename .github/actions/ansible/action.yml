@@ -9,6 +9,9 @@ inputs:
     description: 'Ansible inventory to use'
     required: true
     default: localhost
+runs:
+  using: 'docker'
+  image: pk37/colib-client
   args:
     - ${{ inputs.playbook }}
     - ${{ inputs.inventory }}
