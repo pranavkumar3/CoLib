@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Ansible Entrypoint"
 
-echo "[aws]" >> /hosts
+echo "[ubuntu18]" >> /hosts
 echo "172.16.130.188" >> /hosts
 
 echo "[all:vars]" >> /hosts
