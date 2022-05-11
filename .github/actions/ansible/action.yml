@@ -9,9 +9,6 @@ inputs:
     description: 'Ansible inventory to use'
     required: true
     default: localhost
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
   args:
     - ${{ inputs.playbook }}
     - ${{ inputs.inventory }}
