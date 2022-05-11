@@ -1,0 +1,64 @@
+name: Actions complete
+
+on: [workflow_dispatch]
+
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
+
+  
+
+jobs:
+      
+  buildserver:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+    
+    - name: Build the Docker image
+      run: docker build ./backend --file ./backend/Dockerfile --tag ${{secrets.DOCKERI}}/colib-server
+      
+    - name: Login Docker
+      env: 
+        DockerID: ${{secrets.DOCKERI}}
+        DockerPSWD: ${{secrets.DOCKERPSWD}}
+      run: docker login -u $DockerID -p $DockerPSWD
+      
+    - name: Docker push
+      run: docker push ${{secrets.DOCKERI}}/colib-server
+  
+  
+  
+  
+  buildclient:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+    
+    - name: Build the Docker image
+      run: docker build ./frontend --file ./frontend/Dockerfile --tag ${{secrets.DOCKERI}}/colib-client
+      
+    - name: Login Docker
+      env: 
+        DockerID: ${{secrets.DOCKERI}}
+        DockerPSWD: ${{secrets.DOCKERPSWD}}
+      run: docker login -u $DockerID -p $DockerPSWD
+      
+    - name: Docker push
+      run: docker push ${{secrets.DOCKERI}}/colib-client
+  
+  
+  
+  
+  deployAnsible:
+    needs: [buildclient,buildserver]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ./.github/actions/ansible
+    env:
+       SSH_PASSWORD: ${{secrets.SSH_PASSWORD}}
+       SSH_USER: ${{secrets.SSH_USER}}
