@@ -85,7 +85,7 @@ class Header extends Component{
                     <div className="container">
                      <NavbarToggler onClick={this.toggleNav}></NavbarToggler>
                      <NavbarBrand className="mr-auto text-primary" href="/home">
-                     Central Library
+                     CoLib
                      </NavbarBrand>
                      <Collapse isOpen={this.state.isNavOpen} navbar>
                      <Nav navbar>
