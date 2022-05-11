@@ -2,6 +2,7 @@
 ---
 - name: Pull Docker Image
   hosts: all
+  become: true
   tasks:
     - name: docker compose
       copy:
