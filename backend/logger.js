@@ -1,3 +1,10 @@
+const { format, createLogger, transports } = require('winston');
+var DatadogWinston = require('winston-datadog')
+const { timestamp, combine, printf, errors } = format;
+const logFormat = printf(({ level, message, timestamp, stack }) => {
+    return `${timestamp} ${level}: ${stack || message}`;
+  });
+
 const winston = require('winston');
 const env = process.env.NODE_ENV;
 const logDir = 'logs';
@@ -31,7 +38,7 @@ transports: [
     }),
 
     new(require('winston-daily-rotate-file'))({
-        filename: `${logDir}/-apimodules.log`,
+        filename: `${logDir}/routes.log`,
         timestamp: now,
         datePattern: 'dd-MM-yyyy',
         prepend: true,

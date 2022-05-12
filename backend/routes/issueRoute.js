@@ -11,6 +11,7 @@ var passport = require('passport');
 var authenticate = require('../Middleware/authenticate');
 
 const cors = require('./cors');
+const logger = require('../logger');
 
 issueRouter.use(bodyParser.json());
 
@@ -23,11 +24,15 @@ issueRouter.route('/')
                     .populate('student')
                     .populate('book')
                       .then((issues)=>{
+                          logger.info('Get issues');
                           res.statusCode=200;
                           res.setHeader('Content-Type','application/json');
                           res.json(issues);
                       },(err)=>(next(err)))
-                      .catch((err)=>(next(err)))
+                      .catch((err)=>{
+                            logger.info('Get issues failed');
+                            next(err)
+                        })
                   }
 )
 
@@ -38,7 +43,7 @@ issueRouter.route('/')
         .then((requiredUser)=>{
             
             if(!requiredBook){
-            
+                logger.info('Book doesnot exist');
                 err = new Error("Book doesn't exist");
                 err.status = 400;
                 return next(err);
@@ -55,6 +60,7 @@ issueRouter.route('/')
                 .then((issues)=>{
                     notReturned=issues.filter((issue)=>(!issue.returned));
                     if(notReturned&&notReturned.length>=3){
+                        logger.error('Book issue failed');
                         err = new Error(`The student has already issued 3 books. Please return them first`);
                         err.status = 400;
                         return next(err);
@@ -63,6 +69,7 @@ issueRouter.route('/')
                         if(requiredBook.copies>0){
                         Issue.create(req.body, function(err, issue) {
                             if (err) return next(err)
+                            logger.info('Book issued');
                             Issue.findById(issue._id)
                             .populate('student')
                             .populate('book')                        
@@ -83,6 +90,7 @@ issueRouter.route('/')
                     }
                     else {
                         console.log(requiredBook);
+                        logger.error('Book not available');
                         err = new Error(`The book is not available. You can wait for some days, until the book is returned to library.`);
                         err.status = 400;
                         return next(err);
@@ -108,11 +116,10 @@ issueRouter.route('/')
     res.end('PUT operation not supported on /issues');
 })
 .delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
-    //res.statusCode = 403;
-    //res.end('DELETE operation not supported on /issues');
     
     Issue.remove({})
     .then((resp) => {
+        logger.info('Issue removed');
         console.log("Removed All Issue");
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -129,6 +136,7 @@ issueRouter.route('/student/')
     .populate('student')
     .populate('book')
     .then((issue)=>{
+        logger.info('Get issues by student');
         res.statusCode=200;
         res.setHeader('Content-Type','application/json');
         res.json(issue);

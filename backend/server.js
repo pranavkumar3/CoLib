@@ -32,8 +32,14 @@ const mongoURI = process.env.MONGO_URI;
 
 // Connect to mongo
 mongoose.connect(mongoURI)
-.then(()=> {console.log("MongoDB Connected");})
-.catch(err => console.log(err));
+.then(()=> {
+  logger.info('MongoDB connected');
+  console.log(`MongoDB Connected`);
+})
+.catch(err =>{
+  logger.info('MongoDB connection error');
+  console.log(err);
+});
 
 app.use(passport.initialize());
 

@@ -1,0 +1,44 @@
+2022-05-12 13:37:17 info: Server started on port 5000
+2022-05-12 13:37:18 info: MongoDB connected
+2022-05-12 13:37:33 info: Login successful
+2022-05-12 13:39:02 info: Add books
+2022-05-12 13:39:18 info: Update book by id
+2022-05-12 13:40:17 info: Add books
+2022-05-12 13:41:38 info: Add books
+2022-05-12 13:42:17 info: Server started on port 5000
+2022-05-12 13:42:18 info: MongoDB connected
+2022-05-12 13:42:20 info: Get books
+2022-05-12 13:43:33 info: Add books
+2022-05-12 13:43:51 info: Delete book by id
+2022-05-12 13:44:08 info: Update book by id
+2022-05-12 13:44:25 info: Get books
+2022-05-12 13:49:26 info: Server started on port 5000
+2022-05-12 13:49:28 info: MongoDB connected
+2022-05-12 13:49:34 info: Get books
+2022-05-12 13:50:31 info: Server started on port 5000
+2022-05-12 13:50:32 info: MongoDB connected
+2022-05-12 13:50:56 info: Server started on port 5000
+2022-05-12 13:50:57 info: MongoDB connected
+2022-05-12 14:50:37 info: Server started on port 5000
+2022-05-12 14:50:39 info: MongoDB connected
+2022-05-12 14:51:17 info: Server started on port 5000
+2022-05-12 14:51:19 info: MongoDB connected
+2022-05-12 14:52:18 info: Server started on port 5000
+2022-05-12 14:52:20 info: MongoDB connected
+2022-05-12 14:52:52 info: Login successful
+2022-05-12 14:52:53 info: Get issues
+2022-05-12 14:53:10 info: Update book by id
+2022-05-12 15:00:50 info: Book issued
+2022-05-12 15:01:57 info: Server started on port 5000
+2022-05-12 15:01:58 info: MongoDB connected
+2022-05-12 15:02:02 error: Book not available
+2022-05-12 15:05:45 info: Login successful
+2022-05-12 15:05:45 info: Get issues
+2022-05-12 15:07:28 info: Server started on port 5000
+2022-05-12 15:07:29 info: MongoDB connected
+2022-05-12 15:14:25 info: Book issued
+2022-05-12 15:14:31 info: Book issued
+2022-05-12 15:14:39 info: Book issued
+2022-05-12 15:14:49 error: Book issue failed
+2022-05-12 16:00:49 info: Server started on port 5000
+2022-05-12 16:00:51 info: MongoDB connected

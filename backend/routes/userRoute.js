@@ -5,6 +5,8 @@ var User = require('../models/userModel');
 var passport = require('passport');
 var authenticate = require('../Middleware/authenticate');
 
+const logger=require('../logger');
+
 const cors = require('./cors');
 
 router.use(bodyParser.json());
@@ -31,11 +33,15 @@ function(req,res,next){
     $set: req.body
 },{new: true})
 .then((user) => {
+  logger.info('Updated profile')
    res.statusCode = 200;
    res.setHeader('Content-Type', 'application/json');
    res.json(user);
 }, (err) => next(err))
-.catch((err) => res.status(400).json({success: false}));
+.catch((err) => {
+  logger.info('Update profile failed');
+  res.status(400).json({success: false});
+});
 })
 
 // For change of password
@@ -44,6 +50,7 @@ function(req,res,next){
   User.findById(req.params.userId)
 .then((user) => {
   if(user&&!user.admin){
+    logger.info('Password change');
     user.setPassword(req.body.password, function(){
 
       user.save();
@@ -57,7 +64,10 @@ function(req,res,next){
     res.status(400).json({message: "Password of an admin can't be changed this way.\nContact the webmaster"});
   }
 }, (err) => next(err))
-.catch((err) => res.status(400).json({message: 'Internal Server Error'}));
+.catch((err) => {
+  logger.error('Password change error');
+  res.status(400).json({message: 'Internal Server Error'});
+});
 })
 
 
@@ -69,6 +79,7 @@ router.post('/signup',cors.corsWithOptions, (req, res, next) => {
    roll : req.body.roll }), 
     req.body.password, (err, user) => {
       if(err) {
+        logger.error('Singup error');
         res.statusCode = 500;
         res.setHeader('Content-Type', 'application/json');
         res.json({err: err});
@@ -77,12 +88,14 @@ router.post('/signup',cors.corsWithOptions, (req, res, next) => {
                  
         user.save((err, user) => {
           if (err) {
+            logger.error('Singup error');
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             res.json({err: err});
             return ;
           }
           passport.authenticate('local')(req, res, () => {
+            logger.info('Singup successful');
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
             res.json({success: true, status: 'Registration Successful!'});
@@ -94,22 +107,29 @@ router.post('/signup',cors.corsWithOptions, (req, res, next) => {
 
 router.post('/login',cors.corsWithOptions, passport.authenticate('local'), (req, res,next) => {
   passport.authenticate('local', (err, user, info) => {
-    if (err)
+    if (err){
+      logger.error('Error logging in');
       return next(err);
+    }
 
     if (!user) {
+      logger.error('Login unsuccessful');
+      console.log('1');
       res.statusCode = 401;
       res.setHeader('Content-Type', 'application/json');
       res.json({success: false, status: 'Login Unsuccessful!', err: info});
     }
     req.logIn(user, (err) => {
       if (err) {
+        logger.error('Login unsuccessful');
+        console.log('1');
         res.statusCode = 401;
         res.setHeader('Content-Type', 'application/json');
         res.json({success: false, status: 'Login Unsuccessful!', err: 'Could not log in user!'});          
       }
 
       var token = authenticate.getToken({_id: req.user._id});
+      logger.info('Login successful');
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.json({success: true, status: 'Login Successful!', token: token, userinfo: req.user});
@@ -119,6 +139,8 @@ router.post('/login',cors.corsWithOptions, passport.authenticate('local'), (req,
 
 router.get('/logout',cors.cors, (req, res) => {
   if (req.session) {
+    logger.info('Logout successful');
+    console.log('2');
     req.session.destroy();
     res.clearCookie('session-id');
     res.redirect('/');
