@@ -6,6 +6,7 @@ var passport = require('passport');
 var authenticate = require('./Middleware/authenticate');
 const dotenv=require('dotenv').config()
 
+const logger=require('./logger')
 
 // Loading routers
 const bookRouter = require('./routes/bookRoute');
@@ -53,4 +54,9 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, ()=> console.log(`Server started running on port ${port}`));
+app.listen(port, ()=>{
+  logger.info(`Server started on port ${port}`)
+  console.log(`Server started running on port ${port}`)
+});
+
+module.exports=app
