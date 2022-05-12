@@ -11,7 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
-    - run: npm run test
+    -   run: |
+          cd frontend
+          npm run test
     
     - name: Build the Docker image
       run: docker build ./frontend --file ./frontend/Dockerfile --tag ${{secrets.DOCKERI}}/colib-client
