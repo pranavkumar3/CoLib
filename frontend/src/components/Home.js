@@ -16,7 +16,11 @@ render(){
     return(
         <div className="container mt-4 home text-center align-self-center">
         <br/><br/><br/>
+        <br/>  
+        <br/>  
+        <br/>  
             <div className="row mt-3 darkbg text-center justify-content-center">
+
             <h1 align="center"> Welcome to IIIT-B Library Portal</h1>
             </div>
             <div className="row darkbg">
