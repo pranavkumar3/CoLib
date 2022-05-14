@@ -3,22 +3,26 @@ import { Table,Button } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import Loading from './LoadingScreen.js';
 
+
 const fineRate=1;
 let totalFine=0;
 const allowedDays=30;
 function RenderIssue ({issue,i,returnBook}) {
     const dates=[];
     const today= new Date();
-    dates.push(today);
+    // const Tdate = Date.parse('3 May 2022 00:12:00 GMT');
+    const Tdate = Date.parse(today);
+    console.log(Tdate);
+    dates.push(Tdate);
     const issueDate=new Date(Date.parse(issue.createdAt));
     const deadline = new Date( Date.parse(issue.createdAt));
     deadline.setDate(deadline.getDate()+30);
     dates.push(deadline);
     const returnDate=issue.returned?new Date(Date.parse((issue.updatedAt))):(new Date(Math.min.apply(null,dates)));
     let fine=0;
-      if(((returnDate.getTime()-issueDate.getTime())/(1000 * 60 * 60 * 24))>allowedDays)
+      if(((today.getTime()-issueDate.getTime())/(1000 * 60 * 60 * 24))>allowedDays)
       {
-        fine=Math.floor((returnDate.getTime()-issueDate.getTime())/(1000 * 60 * 60 * 24))*fineRate;
+        fine=Math.floor((today.getTime()-returnDate.getTime())/(1000 * 60 * 60 * 24))*fineRate;
       }
    totalFine+=fine;
     return (
