@@ -68,6 +68,9 @@ render(){
         return(
 
         <div className="container mt-6 text-center align-self-center full">
+                        <br/>  
+            <br/>   
+            <br/>              
             <div className="row text-center justify-content-center heading">
             <div className="col-12">
                 <h3>Stats</h3>

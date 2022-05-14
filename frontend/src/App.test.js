@@ -1,6 +1,5 @@
 import { getByText, render, fireEvent, screen } from '@testing-library/react';
 import App from './App';
-import Home from './components/Home'
 import React from 'react';
 describe("<App />", () => {
     it("Renders <App /> component correctly", () => {
@@ -13,7 +12,7 @@ describe("<App />", () => {
             );
               //Case-1
               fireEvent.click(getByText("Home"));
-              expect(getByText(/TEXT/i)).toBeInTheDocument();
+              expect(getByText(/Welcome to IIIT-B Library Portal/i)).toBeInTheDocument();
               });
             
 

@@ -46,11 +46,17 @@ render(){
     return(
 
         <div className="container mt-6 home text-center align-self-center">
+                        <br/>  
+            <br/>   
+            <br/>  
+            <br/>   
             <div className="row text-center justify-content-center">
-            
+            <br/>  
+            <br/>     
             <Card className="heading">
-                
-        <CardHeader><h3>My Profile</h3></CardHeader>
+            <br/>
+
+        <CardHeader><h3>Profile Info</h3></CardHeader>
         <CardBody>
           <CardText>
           <h5> First Name : {'          '+this.props.auth.userinfo.firstname}</h5>

@@ -6,6 +6,7 @@
 body{
 background-color: rgba(1, 11, 20, 0.007);
 width: 100vw;
+height: 100vw;
 }
 
 .row-content {
@@ -14,35 +15,37 @@ width: 100vw;
 }
 
 .footer{
-    background-color: rgb(95, 148, 216);
+    background-color: rgb(177, 239, 21);
     height: 25px;
     margin: auto;
   }
 
 
   .home{
-      /* background-image: url('./images/walllpaper.jpg'); */
-      min-height: 100vh;
-      min-width: 99vw;
+      background-image: url('../images/college.jpeg');
+      background-repeat:no-repeat; 
+      background-size: cover; 
+      min-height: 99vh;
+      min-width: 100vw;
     }
 
   .darkbg{
       background-color: black;
-      opacity: 0.7;
+      opacity: 0.8;
       color: white;
       size: 4rem;
   }
 
   table, th, td {
-    border: 1px solid white;
+    border: 5px solid white;
   }
 
   table {
-      min-width: 40%
+      min-width: 70%
   }
 
   .heading{
-      margin-top: 70px;
+      margin-top: 100px;
   }
 
   .full{
@@ -55,4 +58,8 @@ width: 100vw;
 
   .loading{
 min-height: 100vh;
+  }
+  .tbl{
+    width:700px; 
+    border-collapse: collapse;
   }

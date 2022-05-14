@@ -77,8 +77,8 @@ render(){
                                         show="touched"
                                         messages={{
                                             required: 'Required',
-                                            minLength: ' Must be greater than 2 characters',
-                                            uniqueName: ' There exists a book with this name already'
+                                            minLength: 'Must be greater than 2 characters',
+                                            uniqueName: 'There exists a book with this name already'
                                         }}
                                      />
                                 </Col>

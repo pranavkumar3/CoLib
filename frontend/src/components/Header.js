@@ -105,9 +105,9 @@ class Header extends Component{
                                                 </div>
                             </DropdownToggle>
                             <DropdownMenu>
-                              <DropdownItem onClick={this.toggleNav} tag={Link} to="/books">View / Modify books</DropdownItem>
+                              <DropdownItem onClick={this.toggleNav} tag={Link} to="/books">View / Update Books</DropdownItem>
                               <DropdownItem divider/>
-                              <DropdownItem onClick={this.toggleNav} tag={Link} to="/add_book" >Add book</DropdownItem>
+                              <DropdownItem onClick={this.toggleNav} tag={Link} to="/add_book" >Add Book</DropdownItem>
                             </DropdownMenu>
                           </Dropdown>
                           </NavItem>

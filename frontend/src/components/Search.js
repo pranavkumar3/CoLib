@@ -91,9 +91,12 @@ render(){
     return(
         
         <div className="container loading">
+                      <br/>  
+                      <br/>  
         <div className="row">
             <div className="col-12 heading">
-             <h3 align="center">Search your book here : </h3>
+             <h3 align="center">Search Book: </h3>
+             <br/>  
              <Form>
         <Row form>
           <Col md={6}>
